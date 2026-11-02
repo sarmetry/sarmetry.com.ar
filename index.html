@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarmetry — Interferometría y teledetección aplicada</title>
+<meta name="description" content="Sarmetry: monitoreo geomecánico con interferometría radar (InSAR) y teledetección espectral para minería y Oil & Gas. Detección de desplazamientos milimétricos.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sarmetry.com.ar/">
+<meta property="og:title" content="Sarmetry — Interferometría y teledetección aplicada">
+<meta property="og:description" content="Monitoreo y detección de desplazamientos con InSAR y sensores remotos para minería y Oil & Gas.">
+<meta property="og:image" content="https://sarmetry.com.ar/og-sarmetry.png">
+<meta property="og:image:secure_url" content="https://sarmetry.com.ar/og-sarmetry.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sarmetry — Interferometría y teledetección aplicada">
+<meta property="og:locale" content="es_AR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sarmetry — Interferometría y teledetección aplicada">
+<meta name="twitter:description" content="Monitoreo y detección de desplazamientos con InSAR y sensores remotos para minería y Oil & Gas.">
+<meta name="twitter:image" content="https://sarmetry.com.ar/og-sarmetry.png">
+
+<meta name="theme-color" content="#1D2226">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#1D2226;
+    --night-2:#262D32;
+    --teal:#11766A;
+    --aqua:#1F9A88;
+    --aqua-soft:#7FE3D4;
+    --copper:#11766A;
+    --copper-light:#2FB8A6;
+    --sand:#F2F5F6;
+    --paper:#F4F7F8;
+    --ink:#1D2226;
+    --ink-soft:#4A5A63;
+    --line:rgba(29,34,38,0.14);
+    --line-light:rgba(242,245,246,0.16);
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Montserrat', sans-serif;
+    color:var(--night);
+    margin:0;
+    font-weight:600;
+    letter-spacing:-0.015em;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  @media(max-width:640px){ .wrap{padding:0 20px;} }
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--copper);margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--copper);}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(29,34,38,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-light);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding-top:10px;padding-bottom:10px;}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .brand img{height:46px;width:auto;}
+  .brand-text{
+    font-family:'Montserrat', sans-serif;
+    font-size:16px;font-weight:600;letter-spacing:0.14em;
+    color:var(--sand);line-height:1.1;white-space:nowrap;
+  }
+  .brand-text span{
+    display:block;font-family:'JetBrains Mono', monospace;
+    font-size:9px;font-weight:400;letter-spacing:0.12em;
+    color:var(--aqua-soft);margin-top:2px;
+  }
+  ul.links{display:flex;gap:26px;list-style:none;margin:0;padding:0;}
+  ul.links a{
+    text-decoration:none;font-size:14px;font-weight:500;color:var(--sand);
+    position:relative;padding-bottom:4px;
+  }
+  ul.links a::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+    background:var(--copper-light);transform:scaleX(0);transform-origin:left;
+    transition:transform .25s ease;
+  }
+  ul.links a:hover::after{transform:scaleX(1);}
+  .nav-toggle{display:none;}
+  section[id]{scroll-margin-top:72px;}
+
+  @media(max-width:860px){
+    .brand-text span{display:none;}
+    ul.links{
+      position:absolute;top:100%;left:0;right:0;
+      background:var(--night);flex-direction:column;gap:0;
+      max-height:0;overflow:hidden;transition:max-height .3s ease;
+    }
+    ul.links.open{max-height:440px;border-bottom:1px solid var(--line-light);}
+    ul.links a{display:block;padding:14px 20px;border-top:1px solid var(--line-light);}
+    ul.links a::after{display:none;}
+    .nav-toggle{
+      display:flex;flex-direction:column;gap:5px;
+      background:none;border:none;cursor:pointer;padding:8px;
+    }
+    .nav-toggle span{width:22px;height:2px;background:var(--sand);}
+  }
+
+  /* ---------- Hero: franjas de interferograma ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:var(--night);color:var(--sand);
+    padding:104px 0 92px;
+  }
+  .fringes{
+    position:absolute;pointer-events:none;
+    right:-6%;top:50%;width:min(62vw,820px);aspect-ratio:116/52;
+    transform:translateY(-46%);
+    background:url("hero-hoyo.svg") center/contain no-repeat;
+    opacity:0.5;
+    -webkit-mask-image:radial-gradient(ellipse 60% 70% at 55% 50%, #000 30%, transparent 78%);
+            mask-image:radial-gradient(ellipse 60% 70% at 55% 50%, #000 30%, transparent 78%);
+  }
+  @media(max-width:640px){.fringes{width:150vw;right:-55%;top:auto;bottom:-4%;transform:none;opacity:.22;}}
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 47px, rgba(242,245,246,0.05) 47px, rgba(242,245,246,0.05) 48px),
+      repeating-linear-gradient(90deg, transparent, transparent 71px, rgba(242,245,246,0.05) 71px, rgba(242,245,246,0.05) 72px);
+  }
+  .hero-inner{position:relative;z-index:1;}
+  .hero-inner > div{max-width:680px;}
+  .hero .eyebrow{color:var(--aqua-soft);}
+  .hero .eyebrow::before{background:var(--aqua-soft);}
+  .hero h1{
+    color:var(--sand);
+    font-size:clamp(34px, 5.4vw, 60px);
+    line-height:1.04;font-weight:700;
+  }
+  .hero h1 em{font-style:normal;color:var(--copper-light);}
+  .lede{margin:24px 0 0;font-size:18px;color:rgba(242,245,246,0.86);max-width:54ch;}
+  .coord-stamp{
+    margin-top:28px;font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;letter-spacing:0.12em;color:var(--aqua-soft);
+  }
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;}
+  .btn{
+    display:inline-block;text-decoration:none;font-weight:600;font-size:14.5px;
+    padding:13px 24px;border-radius:var(--radius);transition:all .2s ease;
+  }
+  .btn-solid{background:#2FB8A6;color:#1D2226;border:1px solid #2FB8A6;}
+  .btn-solid:hover{background:#4FD3C0;border-color:#4FD3C0;}
+  .btn-ghost{color:var(--sand);border:1px solid rgba(242,245,246,0.4);}
+  .btn-ghost:hover{border-color:var(--sand);background:rgba(242,245,246,0.08);}
+
+  /* ---------- Secciones ---------- */
+  section.block{padding:96px 0;border-bottom:1px solid var(--line);}
+  .section-head{margin-bottom:44px;max-width:720px;}
+  .section-head h2{font-size:clamp(28px, 3.6vw, 42px);line-height:1.12;}
+  .intro-text{font-size:18px;max-width:70ch;color:var(--ink);margin:0 0 40px;}
+  .intro-text strong{color:var(--night);}
+  .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 0 40px;}
+  .about-item{border-top:2px solid var(--night);padding-top:14px;}
+  .about-tag{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+  .about-item p{margin:0;color:var(--ink-soft);font-size:16px;}
+  .about-item strong{color:var(--night);}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:20px;}}
+
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .pillar{
+    border:1px solid var(--line);background:#fff;padding:28px;border-radius:var(--radius);
+    border-top:3px solid var(--aqua);
+  }
+  .pillar h3{font-size:19px;margin-bottom:10px;}
+  .pillar p{margin:0;color:var(--ink-soft);font-size:15.5px;}
+  @media(max-width:860px){.pillars{grid-template-columns:1fr;}}
+
+  /* Servicios */
+  .services{display:grid;gap:24px;}
+  .service{
+    display:grid;grid-template-columns:72px 1fr;gap:28px;
+    border:1px solid var(--line);background:#fff;padding:32px;border-radius:var(--radius);
+  }
+  .service .num{
+    font-family:'JetBrains Mono', monospace;font-size:34px;font-weight:500;
+    color:var(--copper);line-height:1;
+  }
+  .service h3{font-size:24px;margin-bottom:6px;}
+  .service > div > p{margin:0 0 18px;color:var(--ink-soft);}
+  .tech-list{list-style:none;margin:0;padding:0;display:grid;gap:14px;}
+  .tech-list li{
+    padding-left:18px;position:relative;font-size:15.5px;
+  }
+  .tech-list li::before{
+    content:"";position:absolute;left:0;top:0.7em;width:8px;height:1px;background:var(--copper);
+  }
+  .tech-list strong{color:var(--night);font-weight:600;}
+  @media(max-width:640px){
+    .service{grid-template-columns:1fr;gap:12px;padding:24px;}
+  }
+
+  /* Industrias (fondo oscuro) */
+  .dark{background:var(--night);color:var(--sand);border-bottom:none;position:relative;overflow:hidden;}
+  .dark h2,.dark h3{color:var(--sand);}
+  .dark .eyebrow{color:var(--aqua-soft);}
+  .dark .eyebrow::before{background:var(--aqua-soft);}
+  .industries{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .industry{
+    border:1px solid var(--line-light);background:rgba(242,245,246,0.03);
+    padding:32px;border-radius:var(--radius);
+  }
+  .industry h3{font-size:26px;margin-bottom:18px;}
+  .industry .tech-list li{color:rgba(242,245,246,0.86);}
+  .industry .tech-list strong{color:var(--aqua-soft);}
+  .industry .tech-list li::before{background:var(--copper-light);}
+  @media(max-width:1000px){.industries{grid-template-columns:1fr;}}
+
+  /* Tecnología */
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .tech-card{border-top:1px solid var(--line);padding-top:20px;}
+  .tech-card .tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;letter-spacing:0.1em;
+    color:var(--teal);text-transform:uppercase;display:block;margin-bottom:10px;
+  }
+  .tech-card h3{font-size:20px;margin-bottom:10px;}
+  .tech-card p{margin:0;color:var(--ink-soft);font-size:15.5px;}
+  .bands{display:flex;gap:8px;margin:14px 0 0;flex-wrap:wrap;}
+  .bands span{
+    font-family:'JetBrains Mono', monospace;font-size:12px;
+    padding:3px 10px;border:1px solid var(--line);border-radius:99px;color:var(--night);
+  }
+  @media(max-width:860px){.tech-grid{grid-template-columns:1fr;}}
+
+  /* Impacto */
+  .impact{background:#E6EDEF;}
+  .impact-list{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .impact-item .k{
+    font-family:'JetBrains Mono', monospace;font-size:12px;letter-spacing:0.1em;
+    color:var(--copper);display:block;margin-bottom:10px;
+  }
+  .impact-item h3{font-size:21px;margin-bottom:10px;}
+  .impact-item p{margin:0;color:var(--ink-soft);font-size:15.5px;}
+  @media(max-width:860px){.impact-list{grid-template-columns:1fr;}}
+
+  /* Contacto */
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+  .contact-cards{display:grid;gap:16px;}
+  .contact-card{
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:22px 26px;text-decoration:none;
+    border:1px solid var(--line-light);border-radius:var(--radius);
+    background:rgba(242,245,246,0.04);transition:all .2s ease;
+  }
+  .contact-card:hover{border-color:var(--aqua-soft);background:rgba(242,245,246,0.08);}
+  .contact-card .label{
+    display:block;font-family:'JetBrains Mono', monospace;font-size:11px;
+    letter-spacing:0.12em;color:var(--aqua-soft);text-transform:uppercase;margin-bottom:4px;
+  }
+  .contact-card .value{font-family:'Montserrat', sans-serif;font-size:19px;color:var(--sand);}
+  .contact-card .arrow{font-size:20px;color:var(--sand);transition:transform .2s ease;}
+  .contact-card:hover .arrow{transform:translateX(6px);color:var(--copper-light);}
+  .contact-card.pending{cursor:default;}
+  .contact-card.pending:hover{border-color:var(--line-light);background:rgba(242,245,246,0.04);}
+  .contact-card.pending .value{color:rgba(242,245,246,0.55);}
+  .dark p.sub{color:rgba(242,245,246,0.78);max-width:40ch;margin:16px 0 0;}
+  @media(max-width:800px){.contact-wrap{grid-template-columns:1fr;gap:36px;}}
+
+  /* Footer */
+  footer{background:var(--night);border-top:1px solid var(--line-light);padding:36px 0;color:var(--sand);}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .footer-inner .brand img{height:34px;}
+  .footer-inner .brand-text{font-size:13px;}
+  .footer-note{
+    font-family:'JetBrains Mono', monospace;font-size:11px;
+    color:rgba(242,245,246,0.6);letter-spacing:0.04em;
+  }
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="brand">
+      <img src="logo-completo.svg" alt="Sarmetry" width="221" height="46">
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#nosotros">Quiénes somos</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#industrias">Industrias</a></li>
+      <li><a href="#tecnologia">Tecnología</a></li>
+      <li><a href="#impacto">Impacto</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="inicio">
+  <div class="fringes"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">Interferometría y teledetección aplicada</span>
+      <h1>Monitoreo y detección de <em>desplazamientos</em></h1>
+      <p class="lede">Medimos la deformación del terreno y de la infraestructura con radar satelital y sensores ópticos, para reducir riesgos geotécnicos en minería y en la industria de hidrocarburos.</p>
+      <div class="coord-stamp">TASAS DE DEFORMACIÓN MILIMÉTRICAS — SAR · HIPERESPECTRAL · MULTIESPECTRAL</div>
+      <div class="cta-row">
+        <a href="#servicios" class="btn btn-solid">Ver servicios</a>
+        <a href="#contacto" class="btn btn-ghost">Contactar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIÉNES SOMOS ================= -->
+<section class="block" id="nosotros">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Quiénes somos</span>
+      <h2>Tecnología geoespacial para prevenir riesgos.</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-item">
+        <span class="about-tag">Qué hacemos</span>
+        <p><strong>Sarmetry</strong> aplica tecnología geoespacial y sensores remotos para reducir riesgos estructurales, resguardar la estabilidad geomecánica y mejorar la eficiencia operativa.</p>
+      </div>
+      <div class="about-item">
+        <span class="about-tag">Experiencia</span>
+        <p>Un equipo con más de 10 años en obras civiles, minería y Oil &amp; Gas, en terreno y en el procesamiento de los datos que respaldan las decisiones de cada proyecto.</p>
+      </div>
+      <div class="about-item">
+        <span class="about-tag">Formación</span>
+        <p>Grado, posgrados y capacitaciones en información satelital. Entendemos qué dato necesita cada actividad —minería, infraestructura u Oil &amp; Gas— y cómo le resulta útil.</p>
+      </div>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar">
+        <h3>Monitoreo geomecánico de precisión</h3>
+        <p>Radar satelital para medir el movimiento del terreno con precisión milimétrica.</p>
+      </div>
+      <div class="pillar">
+        <h3>Analítica multi-escala</h3>
+        <p>Análisis avanzado de datos, desde el activo puntual hasta la región, para la gestión de infraestructura.</p>
+      </div>
+      <div class="pillar">
+        <h3>Mapeo mineralógico y ambiental</h3>
+        <p>Sensores ópticos de última generación para caracterizar el terreno y su entorno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS ================= -->
+<section class="block" id="servicios" style="background:#fff;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Servicios</span>
+      <h2>Tres líneas de trabajo, un mismo objetivo: decisiones con datos auditables.</h2>
+    </div>
+    <div class="services">
+
+      <article class="service reveal">
+        <div class="num">01</div>
+        <div>
+          <h3>Interferometría radar (InSAR multitemporal)</h3>
+          <p>Series temporales de deformación para zonas urbanas, industriales y naturales.</p>
+          <ul class="tech-list">
+            <li><strong>PS-InSAR (Persistent Scatterers).</strong> Identifica reflectores permanentes estables, como rocas, hormigón e infraestructura, para obtener series de deformación milimétrica de muy alta densidad espacial y temporal.</li>
+            <li><strong>SBAS (Small Baseline Subset).</strong> Combina líneas de base geométricas y temporales cortas para optimizar la cobertura en áreas no urbanas, con vegetación dispersa y en frentes de minado.</li>
+            <li><strong>Subsidencia y estabilidad.</strong> Medición del movimiento superficial en frentes de minado, presas de relaves, taludes y trazados de ductos.</li>
+            <li><strong>Mapas de velocidad de deformación.</strong> Vectores de desplazamiento y focos de inestabilidad geotécnica, históricos y en curso.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="service reveal">
+        <div class="num">02</div>
+        <div>
+          <h3>Teledetección espectral e hiperespectral</h3>
+          <p>Firmas espectrales para entender qué hay en el terreno y cómo cambia.</p>
+          <ul class="tech-list">
+            <li><strong>Mapeo mineralógico y geológico.</strong> Clasificación y delimitación de zonas de alteración, litologías y objetivos de exploración minera.</li>
+            <li><strong>Líneas de base ambientales.</strong> Monitoreo de la calidad del suelo, de cuerpos de agua superficiales y de la salud de la vegetación nativa en áreas de influencia.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="service reveal">
+        <div class="num">03</div>
+        <div>
+          <h3>Monitoreo e integridad de infraestructura</h3>
+          <p>Modelos del terreno e inspección de activos distribuidos.</p>
+          <ul class="tech-list">
+            <li><strong>Gemelos digitales del terreno.</strong> Modelos topográficos de alta resolución con sensores ópticos y radar para la gestión del relieve.</li>
+            <li><strong>Auditoría de activos lineales.</strong> Inspección automatizada de anomalías en extensos corredores geográficos e infraestructura crítica distribuida.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= INDUSTRIAS ================= -->
+<section class="block dark" id="industrias">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Alcance por industria</span>
+      <h2>Minería, Oil &amp; Gas e infraestructura.</h2>
+    </div>
+    <div class="industries reveal">
+      <div class="industry">
+        <h3>Minería</h3>
+        <ul class="tech-list">
+          <li><strong>Tajos abiertos y minería subterránea.</strong> Control continuo de la estabilidad de taludes, bancos, rampas y galerías con InSAR multitemporal.</li>
+          <li><strong>Depósitos de estériles y presas de relaves.</strong> Monitoreo de la integridad estructural y del comportamiento dinámico con reflectores naturales y artificiales.</li>
+          <li><strong>Exploración geológica remota.</strong> Clasificación de firmas espectrales para detectar nuevos yacimientos.</li>
+        </ul>
+      </div>
+      <div class="industry">
+        <h3>Oil &amp; Gas</h3>
+        <ul class="tech-list">
+          <li><strong>Upstream.</strong> Estabilidad geomecánica en campos de extracción y en zonas con inyección o subsidencia asociada a la producción.</li>
+          <li><strong>Midstream / Downstream.</strong> Inspección geotécnica de derechos de vía (<em>Right of Way</em>) en corredores de ductos frente a deslizamientos o asentamientos, con SBAS en terrenos naturales.</li>
+          <li><strong>Infraestructura de plantas.</strong> Control del asentamiento de fundaciones en tanques, refinerías y terminales de almacenamiento con PS-InSAR.</li>
+        </ul>
+      </div>
+      <div class="industry">
+        <h3>Infraestructura</h3>
+        <ul class="tech-list">
+          <li><strong>Activos lineales.</strong> Inspección automatizada de anomalías en extensos corredores geográficos e infraestructura crítica distribuida.</li>
+          <li><strong>Estructuras y fundaciones.</strong> Control de asentamientos sobre hormigón e infraestructura estable con PS-InSAR.</li>
+          <li><strong>Gemelos digitales del terreno.</strong> Modelos topográficos de alta resolución para la gestión del relieve.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TECNOLOGÍA ================= -->
+<section class="block" id="tecnologia">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Tecnología</span>
+      <h2>Constelaciones satelitales y sensores integrados.</h2>
+    </div>
+    <div class="tech-grid reveal">
+      <div class="tech-card">
+        <span class="tag">Radar</span>
+        <h3>Interferometría SAR (InSAR)</h3>
+        <p>Procesamiento avanzado de bandas X, C y L para el análisis histórico y predictivo de la deformación del terreno.</p>
+        <div class="bands"><span>Banda X</span><span>Banda C</span><span>Banda L</span></div>
+      </div>
+      <div class="tech-card">
+        <span class="tag">Óptico</span>
+        <h3>Sensores hiperespectrales y multiespectrales</h3>
+        <p>Identificación precisa de firmas mineralógicas, alteración de rocas y estrés vegetativo.</p>
+      </div>
+      <div class="tech-card">
+        <span class="tag">Satelital</span>
+        <h3>Plataformas de alta resolución</h3>
+        <p>Monitoreo regional continuo, modelos digitales de elevación y caracterización espectral del terreno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IMPACTO ================= -->
+<section class="block impact" id="impacto">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Impacto</span>
+      <h2>Menos incertidumbre, más foco en donde el terreno se mueve.</h2>
+    </div>
+    <div class="impact-list reveal">
+      <div class="impact-item">
+        <span class="k">01 — RIESGO</span>
+        <h3>Reducción de riesgos geotécnicos</h3>
+        <p>Alertas predictivas tempranas que permiten actuar antes de que una falla estructural se convierta en un incidente mayor.</p>
+      </div>
+      <div class="impact-item">
+        <span class="k">02 — COSTOS</span>
+        <h3>Optimización de costos operativos</h3>
+        <p>El mantenimiento se concentra en las zonas de deformación activa, en lugar de repartirse por todo el activo.</p>
+      </div>
+      <div class="impact-item">
+        <span class="k">03 — SEGURIDAD</span>
+        <h3>Sustentabilidad y seguridad operativa</h3>
+        <p>Decisiones críticas respaldadas por información geoespacial y por reportes de deformación auditables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section class="block dark" id="contacto">
+  <div class="wrap">
+    <div class="contact-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Escribinos</span>
+        <h2>Contacto</h2>
+        <p class="sub">Contanos qué activo o qué zona necesitás monitorear y evaluamos la mejor técnica.</p>
+        <div class="coord-stamp">SARMETRY — INTERFEROMETRÍA Y TELEDETECCIÓN APLICADA</div>
+      </div>
+      <div class="contact-cards reveal">
+        <a class="contact-card" href="mailto:sarmetry@gmail.com">
+          <span><span class="label">Email</span><span class="value">sarmetry@gmail.com</span></span>
+          <span class="arrow">→</span>
+        </a>
+        <div class="contact-card pending">
+          <span><span class="label">Oficinas</span><span class="value" style="color:var(--sand)">Córdoba, Argentina</span></span>
+        </div>
+        <a class="contact-card" href="https://wa.me/5492995130364">
+          <span><span class="label">Teléfono y WhatsApp</span><span class="value">+54 9 299 513-0364</span></span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <a href="#inicio" class="brand">
+      <img src="logo-principal.svg" alt="Sarmetry" width="142" height="34">
+    </a>
+    <span class="footer-note">© 2026 SARMETRY.COM.AR — INTERFEROMETRÍA Y TELEDETECCIÓN APLICADA</span>
+  </div>
+</footer>
+
+<script>
+  // menú móvil
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
