@@ -109,6 +109,7 @@
     transition:transform .25s ease;
   }
   ul.links a:hover::after{transform:scaleX(1);}
+  ul.links a.nav-brochure{color:var(--teal-light,#7FE3D4);font-weight:600;}
   .nav-toggle{display:none;}
   section[id]{scroll-margin-top:72px;}
 
@@ -180,8 +181,11 @@
   section.block{padding:96px 0;border-bottom:1px solid var(--line);}
   .section-head{margin-bottom:44px;max-width:720px;}
   .section-head h2{font-size:clamp(28px, 3.6vw, 42px);line-height:1.12;}
+  .section-head p.sub{margin:16px 0 0;font-size:17px;color:var(--ink-soft);max-width:58ch;}
+  .dark .section-head p.sub{color:rgba(242,245,246,0.78);}
   .intro-text{font-size:18px;max-width:70ch;color:var(--ink);margin:0 0 40px;}
   .intro-text strong{color:var(--night);}
+  .tech-sub{margin:34px 0 4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);}
   .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 0 40px;}
   .about-item{border-top:2px solid var(--night);padding-top:14px;}
   .about-tag{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
@@ -255,14 +259,21 @@
   @media(max-width:860px){.tech-grid{grid-template-columns:1fr;}}
 
   /* Impacto */
-  .impact{background:#E6EDEF;}
+  .impact{background:var(--night);color:var(--sand);}
+  .impact-bg{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;
+    opacity:.4;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 22%,#000 78%,transparent 100%);
+            mask-image:linear-gradient(to bottom,transparent 0,#000 22%,#000 78%,transparent 100%);
+  }
+  .impact .wrap{position:relative;z-index:1;}
   .impact-list{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
   .impact-item .k{
     font-family:'JetBrains Mono', monospace;font-size:12px;letter-spacing:0.1em;
-    color:var(--copper);display:block;margin-bottom:10px;
+    color:var(--copper-light);display:block;margin-bottom:10px;
   }
   .impact-item h3{font-size:21px;margin-bottom:10px;}
-  .impact-item p{margin:0;color:var(--ink-soft);font-size:15.5px;}
+  .impact-item p{margin:0;color:rgba(242,245,246,0.86);font-size:15.5px;}
   @media(max-width:860px){.impact-list{grid-template-columns:1fr;}}
 
   /* Contacto */
@@ -325,6 +336,7 @@
       <li><a href="#tecnologia">Tecnología</a></li>
       <li><a href="#impacto">Impacto</a></li>
       <li><a href="#contacto">Contacto</a></li>
+      <li><a class="nav-brochure" href="Brochure-Sarmetry.pdf" download="Brochure-Sarmetry.pdf">Brochure ↓</a></li>
     </ul>
   </div>
 </header>
@@ -352,6 +364,7 @@
     <div class="section-head reveal">
       <span class="eyebrow">Quiénes somos</span>
       <h2>Tecnología geoespacial para prevenir riesgos.</h2>
+      <p class="sub">Combinamos la experiencia en obra con la información satelital para que cada decisión sobre el proyecto se apoye en datos.</p>
     </div>
     <div class="about-grid reveal">
       <div class="about-item">
@@ -396,13 +409,24 @@
       <article class="service reveal">
         <div class="num">01</div>
         <div>
-          <h3>Interferometría radar (InSAR multitemporal)</h3>
-          <p>Series temporales de deformación para zonas urbanas, industriales y naturales.</p>
+          <h3>Interferometría diferencial multitemporal (InSAR)</h3>
+          <p>Según la zona, elegimos la técnica.</p>
+          <p class="tech-sub">Técnicas</p>
           <ul class="tech-list">
             <li><strong>PS-InSAR (Persistent Scatterers).</strong> Identifica reflectores permanentes estables, como rocas, hormigón e infraestructura, para obtener series de deformación milimétrica de muy alta densidad espacial y temporal.</li>
             <li><strong>SBAS (Small Baseline Subset).</strong> Combina líneas de base geométricas y temporales cortas para optimizar la cobertura en áreas no urbanas, con vegetación dispersa y en frentes de minado.</li>
-            <li><strong>Subsidencia y estabilidad.</strong> Medición del movimiento superficial en frentes de minado, presas de relaves, taludes y trazados de ductos.</li>
-            <li><strong>Mapas de velocidad de deformación.</strong> Vectores de desplazamiento y focos de inestabilidad geotécnica, históricos y en curso.</li>
+          </ul>
+          <p class="tech-sub">Resultados</p>
+          <ul class="tech-list">
+            <li><strong>Mapas de velocidad de deformación (raster).</strong> Mapas en formato raster que representan la velocidad de desplazamiento del terreno a lo largo del tiempo.</li>
+            <li><strong>Datos vectoriales de desplazamiento.</strong> Vectores de desplazamiento y focos de inestabilidad geotécnica, históricos y en curso.</li>
+            <li><strong>Modelos digitales de elevación.</strong> Modelos topográficos de alta resolución del terreno, generados con radar y sensores ópticos.</li>
+          </ul>
+          <p class="tech-sub">Análisis</p>
+          <ul class="tech-list">
+            <li><strong>Subsidencia y estabilidad.</strong> Movimiento superficial en frentes de minado, presas de relaves, taludes y trazados de ductos.</li>
+            <li><strong>Análisis histórico y predictivo.</strong> Series temporales de deformación para entender la evolución del terreno y anticipar su comportamiento.</li>
+            <li><strong>Identificación temprana de fallas.</strong> Detección temprana de fallas estructurales para prevenir incidentes mayores.</li>
           </ul>
         </div>
       </article>
@@ -440,7 +464,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Alcance por industria</span>
-      <h2>Minería, Oil &amp; Gas e infraestructura.</h2>
+      <h2>Donde el terreno se mueve, medimos.</h2>
     </div>
     <div class="industries reveal">
       <div class="industry">
@@ -477,18 +501,18 @@
     <div class="section-head reveal">
       <span class="eyebrow">Tecnología</span>
       <h2>Constelaciones satelitales y sensores integrados.</h2>
+      <p class="sub">Integramos constelaciones de radar e imágenes hiper y multiespectrales con sensores aerotransportados, para medir desde el activo puntual hasta la región.</p>
     </div>
     <div class="tech-grid reveal">
       <div class="tech-card">
         <span class="tag">Radar</span>
         <h3>Interferometría SAR (InSAR)</h3>
-        <p>Procesamiento avanzado de bandas X, C y L para el análisis histórico y predictivo de la deformación del terreno.</p>
-        <div class="bands"><span>Banda X</span><span>Banda C</span><span>Banda L</span></div>
+        <p>Procesamiento de bandas X, C y L para el análisis histórico y predictivo de la deformación del terreno.</p>
       </div>
       <div class="tech-card">
         <span class="tag">Óptico</span>
         <h3>Sensores hiperespectrales y multiespectrales</h3>
-        <p>Identificación precisa de firmas mineralógicas, alteración de rocas y estrés vegetativo.</p>
+        <p>Identificación de firmas mineralógicas, alteración de rocas y estrés vegetativo.</p>
       </div>
       <div class="tech-card">
         <span class="tag">Satelital</span>
@@ -500,11 +524,12 @@
 </section>
 
 <!-- ================= IMPACTO ================= -->
-<section class="block impact" id="impacto">
+<section class="block dark impact" id="impacto">
+  <img class="impact-bg" src="interferograma.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Impacto</span>
-      <h2>Menos incertidumbre, más foco en donde el terreno se mueve.</h2>
+      <h2>Menos incertidumbre, más foco donde el terreno se mueve.</h2>
     </div>
     <div class="impact-list reveal">
       <div class="impact-item">
